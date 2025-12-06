@@ -13,7 +13,7 @@ from pandas import DataFrame
 from spacy import load
 from tqdm import tqdm
 
-from src.configs.cfg_base import CONFIG
+from src.configs.cfg_paths import CONFIG
 from src.utils.decorator import timer
 
 spacy4cn = None
