@@ -6,12 +6,13 @@
 # @File     :   preprocessor.py
 # @Desc     :   
 
+from pandas import DataFrame, read_csv
 from pathlib import Path
 from pprint import pprint
 from random import randint
 from tqdm import tqdm
 
-from src.configs.cfg_paths import CONFIG
+from src.configs.cfg_base import CONFIG
 from src.utils.helper import Timer
 from src.utils.SQL import SQLiteIII
 from src.utils.stats import load_json
@@ -27,32 +28,42 @@ def preprocess_data() -> None:
             print()
 
             # Get raw structural data
-            raw: dict = load_json(path)
-            idx_raw: int = randint(0, len(raw) - 1)
-            pprint(raw[idx_raw])
-            print(type(raw[idx_raw]), len(raw))
+            raw: DataFrame = read_csv(path, encoding="latin1")  # Or, use "ISO-8859-1"
+            # print(raw.head())
+            # print()
+            headers: list[str] = ["label", "news"]
+            raw.columns = headers
+            # print(raw.head())
+            # print()
+            idx: int = randint(0, raw.shape[0] - 1)
+            pprint(raw.iloc[idx])
+            print(type(raw.iloc[idx]), raw.shape)
             print()
 
-            # Get the specific data from the raw data
-            dialogs: list[list[str]] = [line["dialog"] for line in tqdm(raw, total=len(raw), desc="Get Dialogs")]
-            idx_rd: int = randint(0, len(dialogs) - 1)
-            print(dialogs[idx_rd])
-            print(len(dialogs), len(dialogs[idx_rd]))
+            # Convert string labels to integer labels
+            categories: dict = {label: idx for idx, label in enumerate(raw["label"].unique())}
+            # print(categories)
+            # print()
+            """
+            categories = {'neutral': 0, 'negative': 1, 'positive': 2}
+            """
+            raw["label"] = raw["label"].map(categories)
+            pprint(raw.iloc[idx])
+            print(type(raw.iloc[idx]), raw.shape)
             print()
 
-            # Get the dialog contents
-            data: list = [
-                line.split("：", 1)[1]
-                for lines in tqdm(dialogs, total=len(dialogs), desc="Get Dialog Contents")
-                for line in lines
-            ]
-            idx: int = randint(0, len(data) - 1)
-            print(data[idx])
-            print(len(data), len(data[idx]))
+            # Get the news
+            news: list[str] = raw["news"].tolist()
+            labels: list[int] = raw["label"].tolist()
+            print(news[idx])
+            print(labels[idx])
 
             # Store the preprocessed data into sqlit 3 database
-            sqlite = SQLiteIII(CONFIG.DATABASE.TABLE, CONFIG.DATABASE.COL)
-            sqlite.insert(data)
+            table: str = "news"
+            cols: dict[str, type[int | str]] = {"label": int, "content": str}
+            data: dict[str, list[int | str]] = {"label": labels, "content": news}
+            with SQLiteIII(table, cols, CONFIG.FILEPATHS.SQLITE) as db:
+                db.insert(data)
         else:
             print(f"{path.name} does NOT exist!")
 
