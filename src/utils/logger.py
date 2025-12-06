@@ -14,7 +14,7 @@ from logging import (Logger, getLogger, INFO, WARNING, ERROR, CRITICAL, DEBUG,
 from pathlib import Path
 from random import randint, uniform
 
-from src.configs.cfg_base import CONFIG
+from src.configs.cfg_paths import CONFIG
 
 
 def record_log(name: str, log_dir: str = str(CONFIG.FILEPATHS.LOGS), mode: str = "w", level: str = "info") -> Logger:
