@@ -11,7 +11,7 @@ from pprint import pprint
 from random import randint
 from tqdm import tqdm
 
-from src.configs.cfg_base import CONFIG
+from src.configs.cfg_paths import CONFIG
 from src.utils.helper import Timer
 from src.utils.SQL import SQLiteIII
 from src.utils.stats import load_json
