@@ -8,8 +8,8 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_paths import Database, FilePaths, Punctuations
-from src.configs.cfg_paths_dl import DataPreprocessor, Hyperparameters
+from src.configs.cfg_base import Database, FilePaths, Punctuations
+from src.configs.cfg_dl import DataPreprocessor, Hyperparameters
 
 
 @dataclass
