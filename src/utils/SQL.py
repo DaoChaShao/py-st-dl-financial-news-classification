@@ -9,7 +9,7 @@ import sqlite3
 from pathlib import Path
 from sqlite3 import connect
 
-from src.configs.cfg_base import CONFIG
+from src.configs.cfg_paths import CONFIG
 
 WIDTH: int = 64
 
