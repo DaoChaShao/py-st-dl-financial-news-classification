@@ -34,8 +34,8 @@ Usage:
 __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
-from .cfg_base import CONFIG, Config, Database, FilePaths, Punctuations
-from .cfg_base4dl import CONFIG4DL, Config4DL, DataPreprocessor, Hyperparameters
+from .cfg_paths import CONFIG, Config, Database, FilePaths, Punctuations
+from .cfg_paths_dl import CONFIG4DL, Config4DL, DataPreprocessor, Hyperparameters
 from .cfg_cnn import CONFIG4CNN, Configuration4CNN, CNNParams
 from .cfg_mlp import CONFIG4MLP, Configuration4MLP, MLPParams
 from .cfg_rnn import CONFIG4RNN, Configuration4RNN, RNNParams
