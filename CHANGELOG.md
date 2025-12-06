@@ -5,6 +5,12 @@
 
 ### Features
 
+- add processor.py for data processing and dataset preparation ([281d517](https://github.com///commit/281d517818653a4423eac9e34ccbbe90515da866))
+- add preprocessor.py for data preprocessing and SQLite integration ([2c84a0a](https://github.com///commit/2c84a0ab9d70c346a3d51f4bbff76fc003d16f3f))
+- add prepper.py for data preparation with TorchDataLoader integration ([ede1185](https://github.com///commit/ede118568c35fcf57124d0bffb6ed28b0bf57849))
+- add __init__.py for data processing module with utility functions ([43c1df9](https://github.com///commit/43c1df95b7415896ee67c0418dc9b00d85770940))
+- add .gitignore to exclude Python-generated files and IDE configurations ([36c2290](https://github.com///commit/36c2290f54e296358b331b89399d6931ee7c5c05))
+- add CHANGELOG.md for version 0.1.0 with features, bug fixes, and chores ([64266db](https://github.com///commit/64266dba23117d21a2dd075b9e08c7a9309970c2))
 - add configuration files for English and Chinese pipelines with updated components and accuracy metrics ([06cdf0d](https://github.com///commit/06cdf0d40b7ca6d2aaf5b4e30e47f8731084d971))
 - add uv.lock ([1fca622](https://github.com///commit/1fca622c18ef85b6fc0de953c20122c3e41d7e03))
 - add FocalLoss class for enhanced binary segmentation with foreground emphasis ([11e446a](https://github.com///commit/11e446a074a15ab28ab3c0b7ce9cfe9c229c84b0))
