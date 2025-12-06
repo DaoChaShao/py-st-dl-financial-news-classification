@@ -3,7 +3,7 @@
 # @Time     :   2025/11/29 14:36
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   cfg_paths.py
+# @File     :   cfg_base.py
 # @Desc     :   
 
 from dataclasses import dataclass, field
@@ -32,8 +32,6 @@ class Database:
     PASSWORD: str = ""
     HOST: str = ""
     PORT: str = ""
-    TABLE: str = "conversations"
-    COL: str = "message"
 
 
 @dataclass
