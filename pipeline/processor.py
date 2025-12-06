@@ -10,7 +10,7 @@ from re import match
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
-from src.configs.cfg_paths_dl import CONFIG4DL
+from src.configs.cfg_dl import CONFIG4DL
 from src.configs.cfg_types import SeqTaskMode
 from src.datasets.seq_next_step import TorchDataset4SeqPredictionNextStep
 from src.utils.helper import Timer
