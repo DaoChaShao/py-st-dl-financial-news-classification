@@ -78,3 +78,8 @@
 
 - add .gitignore to exclude Python and IDE-specific files ([5041720](https://github.com///commit/5041720bddf27a252678d9a55be87ecd4e5f5405))
 
+### Docs
+
+- add news.csv ([e56e136](https://github.com///commit/e56e136f9172d22a24deb8726b3e3f2d43fbde1a))
+- update CHANGELOG.md for version 0.1.0 with new features and improvements ([ecf22c3](https://github.com///commit/ecf22c387bf924ce41ca18df6d2a8310d6ec440c))
+
