@@ -10,7 +10,7 @@ from random import randint
 
 from pipeline.processor import process_data
 
-from src.configs.cfg_base4dl import CONFIG4DL
+from src.configs.cfg_paths_dl import CONFIG4DL
 from src.dataloaders.dataloader4torch import TorchDataLoader
 
 
