@@ -3,13 +3,13 @@
 # @Time     :   2025/11/29 14:56
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   cfg_base4dl.py
+# @File     :   cfg_paths_dl.py
 # @Desc     :   
 
 from dataclasses import dataclass, field
 from torch import cuda
 
-from src.configs.cfg_base import Database, FilePaths, Punctuations
+from src.configs.cfg_paths import Database, FilePaths, Punctuations
 
 
 @dataclass
