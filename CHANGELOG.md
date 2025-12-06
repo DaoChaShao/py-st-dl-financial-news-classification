@@ -80,6 +80,23 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent documentation additions ([fbd73a7](https://github.com///commit/fbd73a749fa56a68fd156305b516ce8b5454c62f))
 - add news.csv ([e56e136](https://github.com///commit/e56e136f9172d22a24deb8726b3e3f2d43fbde1a))
 - update CHANGELOG.md for version 0.1.0 with new features and improvements ([ecf22c3](https://github.com///commit/ecf22c387bf924ce41ca18df6d2a8310d6ec440c))
+
+### Code Refactoring
+
+- update import path in SQL.py for configuration module ([7b49c9b](https://github.com///commit/7b49c9b9eb0ea39e64a06e802062d0354bc042c8))
+- update import path in processor.py for configuration module ([9467ddb](https://github.com///commit/9467ddb5f787a545371225f7ce848157518dc2b6))
+- update import path in preprocessor.py for configuration module ([8039a2c](https://github.com///commit/8039a2cc62a386b84f2651224c73de8d55e2525d))
+- update import path in prepper.py for configuration module ([bf46201](https://github.com///commit/bf462015f92aebb267a5e46301ddacc3e7f5dbb8))
+- update import path in nlp.py for configuration module ([9a30d17](https://github.com///commit/9a30d17f55fd66f40cc098dd223ef6bdf8fec86e))
+- update import path in logger.py for configuration module ([8a39bab](https://github.com///commit/8a39bab35b0ed67bc62f81e7a0f985295f2d760e))
+- update import paths in cfg_unet.py for configuration modules ([4ddaa71](https://github.com///commit/4ddaa711266620030dd64dbf28c56ae28292deff))
+- update import paths in cfg_rnn.py for configuration modules ([a88a8c4](https://github.com///commit/a88a8c412900ad009dd5e2a2e61c7fe0dc98fb2e))
+- rename cfg_base4dl.py to cfg_paths_dl.py and update import paths ([f8e2203](https://github.com///commit/f8e2203fb81828cadf9362b3bea391d72e666b93))
+- rename cfg_base.py to cfg_paths.py and update file paths ([6ffbe7b](https://github.com///commit/6ffbe7b1244b72b29508da76ccb083b37bf1ab9f))
+- update import paths in cfg_mlp.py for configuration modules ([b7270b8](https://github.com///commit/b7270b86c9f45ee2bf784a834e5aaa6524b7202e))
+- update import paths in cfg_cnn.py for configuration modules ([a201ac7](https://github.com///commit/a201ac7863552b1ef5b651cbc84995a297dfad7e))
+- update import paths in __init__.py for configuration modules ([24532cd](https://github.com///commit/24532cd0ecaa56a48ea8d6f50a640c987074201b))
 
