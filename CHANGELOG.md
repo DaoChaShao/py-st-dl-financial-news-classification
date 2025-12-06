@@ -5,6 +5,7 @@
 
 ### Features
 
+- add sqlite3.db ([54677c1](https://github.com///commit/54677c1573d564d05a21ae682dbe1c4eae3af734))
 - add processor.py for data processing and dataset preparation ([281d517](https://github.com///commit/281d517818653a4423eac9e34ccbbe90515da866))
 - add preprocessor.py for data preprocessing and SQLite integration ([2c84a0a](https://github.com///commit/2c84a0ab9d70c346a3d51f4bbff76fc003d16f3f))
 - add prepper.py for data preparation with TorchDataLoader integration ([ede1185](https://github.com///commit/ede118568c35fcf57124d0bffb6ed28b0bf57849))
@@ -80,12 +81,26 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent documentation additions and code refactoring details ([237e98c](https://github.com///commit/237e98ce22808cbd911be7cbc589b8b9632890a7))
 - update CHANGELOG.md to include recent documentation additions ([fbd73a7](https://github.com///commit/fbd73a749fa56a68fd156305b516ce8b5454c62f))
 - add news.csv ([e56e136](https://github.com///commit/e56e136f9172d22a24deb8726b3e3f2d43fbde1a))
 - update CHANGELOG.md for version 0.1.0 with new features and improvements ([ecf22c3](https://github.com///commit/ecf22c387bf924ce41ca18df6d2a8310d6ec440c))
 
 ### Code Refactoring
 
+- update SQL.py to use renamed configuration module and enhance database class functionality ([08f8697](https://github.com///commit/08f8697761a330dbf20e3b28e4fe6cb8f4a2b293))
+- update import path in processor.py for renamed configuration module ([15dc2f7](https://github.com///commit/15dc2f72f2f35283494b867fdf797959e7fdc1c3))
+- update import path in preprocessor.py for renamed configuration module and modify data loading logic ([93c86f5](https://github.com///commit/93c86f538beba3c1e7600fcbfe52895de0a96d5f))
+- update import path in prepper.py for renamed configuration module ([172b1fc](https://github.com///commit/172b1fca5509ba756106895c61afb756a13ecffe))
+- update import path in nlp.py for renamed configuration module ([e02f6e5](https://github.com///commit/e02f6e53534ec3d9e7559817245657a1073e2b9e))
+- update import path in logger.py for renamed configuration module ([88fb653](https://github.com///commit/88fb653d72a88da8c7acdd36b3b5847ffb854a02))
+- update import paths in cfg_unet.py for renamed configuration modules ([b850395](https://github.com///commit/b850395c9dbcaec184c1f41685283f7955dbad4a))
+- update import paths in cfg_rnn.py for renamed configuration modules ([b789334](https://github.com///commit/b789334702742e6f6d8ede9a0afa5850dd9397f7))
+- update import paths in cfg_mlp.py for renamed configuration modules ([1602ba4](https://github.com///commit/1602ba4c5c303ff3c584073172a4a8c55de24e86))
+- rename cfg_paths_dl.py to cfg_dl.py and update import paths ([166a7df](https://github.com///commit/166a7dfdc1d77931046936c72d6d41b0402c4a5c))
+- update import paths in cfg_cnn.py for renamed configuration modules ([00f4f23](https://github.com///commit/00f4f23d5d98c28d310d4075c86cb74eecfa21ef))
+- rename cfg_paths.py to cfg_base.py and update file header ([d89cf56](https://github.com///commit/d89cf569d11cac5bfde905e1bee612952987559b))
+- update import paths in __init__.py for configuration modules ([e4c2069](https://github.com///commit/e4c2069e6af240b7aa4f914e6de7d11801960db4))
 - update import path in SQL.py for configuration module ([7b49c9b](https://github.com///commit/7b49c9b9eb0ea39e64a06e802062d0354bc042c8))
 - update import path in processor.py for configuration module ([9467ddb](https://github.com///commit/9467ddb5f787a545371225f7ce848157518dc2b6))
 - update import path in preprocessor.py for configuration module ([8039a2c](https://github.com///commit/8039a2cc62a386b84f2651224c73de8d55e2525d))
@@ -98,5 +113,4 @@
 - rename cfg_base.py to cfg_paths.py and update file paths ([6ffbe7b](https://github.com///commit/6ffbe7b1244b72b29508da76ccb083b37bf1ab9f))
 - update import paths in cfg_mlp.py for configuration modules ([b7270b8](https://github.com///commit/b7270b86c9f45ee2bf784a834e5aaa6524b7202e))
 - update import paths in cfg_cnn.py for configuration modules ([a201ac7](https://github.com///commit/a201ac7863552b1ef5b651cbc84995a297dfad7e))
-- update import paths in __init__.py for configuration modules ([24532cd](https://github.com///commit/24532cd0ecaa56a48ea8d6f50a640c987074201b))
 
