@@ -38,7 +38,7 @@ NLP 应用的基线。
 2. 使用以下命令安装所需依赖项：`pip install -r requirements.txt`
 3. 使用以下命令运行应用程序：`streamlit run main.py`
 4. 你也可以通过点击以下链接在线体验该应用：  
-   [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://news-classification.streamlit.app/)
+   [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://financial-news-classification.streamlit.app/)
 
 **隐私声明**
 ---
