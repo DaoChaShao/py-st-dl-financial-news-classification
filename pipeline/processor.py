@@ -6,124 +6,126 @@
 # @File     :   processor.py
 # @Desc     :   
 
-from re import match
-from torch.utils.data import Dataset
+from numpy import ndarray
+from pathlib import Path
+from pprint import pprint
+from random import randint
+
 from tqdm import tqdm
 
 from src.configs.cfg_dl import CONFIG4DL
-from src.configs.cfg_types import SeqTaskMode
-from src.datasets.seq_next_step import TorchDataset4SeqPredictionNextStep
+from src.configs.cfg_types import Language, Tokens
 from src.utils.helper import Timer
 from src.utils.highlighter import starts, lines
-from src.utils.nlp import count_frequency, build_word2id_seqs, check_vocab_coverage
+from src.utils.nlp import spacy_batch_tokeniser, count_frequency, build_word2id_seqs, check_vocab_coverage
 from src.utils.stats import create_full_data_split, save_json
 from src.utils.SQL import SQLiteIII
-from src.utils.THU import cut_only
+
+from pipeline import preprocess_data
 
 
-def process_data() -> tuple[Dataset, Dataset, int]:
+def process_data() -> tuple[list, list, list, list, int, ndarray]:
     """ Main Function """
     with Timer("Process Data"):
-        # Get the data from the database: Method I
-        sqlite = SQLiteIII(CONFIG4DL.DATABASE.TABLE, CONFIG4DL.DATABASE.COL)
+        # Get balanced weights
+        balanced_weights: ndarray = preprocess_data()
+
+        # Get the data from the database
+        table: str = "news"
+        cols: dict[str, type[int | str]] = {"label": int, "content": str}
+        sqlite = SQLiteIII(table, cols, CONFIG4DL.FILEPATHS.SQLITE)
         sqlite.connect()
-        data = sqlite.get_all_data()
+        data: list[tuple] = sqlite.fetch_all([col for col in cols.keys()])
         sqlite.close()
+        # pprint(data[:3])
         # print(len(data))
-        # print()
 
         # Separate the data
-        sentences4train, sentences4valid, _ = create_full_data_split(data)
+        data4train, data4valid, _ = create_full_data_split(data)
+        # print(data4train[:3])
+        # print(data4valid[:3])
 
         # Set a dictionary
         # amount: int | None = 100
         amount: int | None = None
-        items4train: list[str] = []
+        contents4train: list[str] = [content for _, content in data4train]
+        contents4valid: list[str] = [content for _, content in data4valid]
         if amount is None:
-            for line in tqdm(sentences4train, total=len(sentences4train), desc="Tokenizing Train Data"):
-                for item in cut_only(line):
-                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
-                        items4train.append(item)
+            items4train: list[list[str]] = spacy_batch_tokeniser(
+                contents4train, lang=Language.EN, batches=CONFIG4DL.PREPROCESSOR.BATCHES
+            )
+            items4valid: list[list[str]] = spacy_batch_tokeniser(
+                contents4valid, lang=Language.EN, batches=CONFIG4DL.PREPROCESSOR.BATCHES
+            )
         else:
-            for line in tqdm(sentences4train[:amount], total=amount, desc="Tokenizing Train Data"):
-                for item in cut_only(line):
-                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
-                        items4train.append(item)
-        # print(items4train)
-        tokens, _ = count_frequency(items4train, top_k=10, freq_threshold=3)
-        # print(tokens)
-        special: list[str] = ["<PAD>", "<UNK>", "<SOS>", "<EOS>"]
+            items4train: list[list[str]] = spacy_batch_tokeniser(
+                contents4train[:amount], lang=Language.EN, batches=CONFIG4DL.PREPROCESSOR.BATCHES
+            )
+            items4valid: list[list[str]] = spacy_batch_tokeniser(
+                contents4valid[:amount], lang=Language.EN, batches=CONFIG4DL.PREPROCESSOR.BATCHES
+            )
+        # print(items4valid[:3])
+        # print(items4train[:3])
+
+        # Count the frequency of the words
+        words4train: list[str] = [word for sentence in items4train for word in sentence]
+        words4valid: list[str] = [word for sentence in items4valid for word in sentence]
+        words4all: list[str] = words4train + words4valid
+        # print(words[:3])
+        tokens, _ = count_frequency(words4all, top_k=10, freq_threshold=3)
+        # print(tokens[:10])
+
+        # Build a dictionary
+        special: list[str] = [Tokens.PAD, Tokens.UNK, Tokens.SOS, Tokens.EOS]
+        # print(special)
         dictionary: dict[str, int] = {
             word: i for i, word in
             tqdm(enumerate(special + tokens), total=len(special + tokens), desc="Building dictionary")
         }
         save_json(dictionary, CONFIG4DL.FILEPATHS.DICTIONARY)
+        dic: Path = Path(CONFIG4DL.FILEPATHS.DICTIONARY)
+        print("Dictionary Saved Successfully!") if dic.exists() else print("Dictionary NOT Saved!")
 
-        # Build sequences & sequence for train
-        sequences4train: list[list[int]] = build_word2id_seqs(sentences4train, dictionary)
-        # idx4train: int = randint(0, len(sequences4train) - 1)
-        # print(sentences4train[idx4train])
-        # print(sequences4train[idx4train])
-        seq4train: list[int] = [
-            index for line in tqdm(sequences4train, total=len(sequences4train), desc="Seq4Train") for index in line
-        ]
-        # print(len(seq4train))
+        # Build sequence for train
+        seq4train: list[list[int]] = build_word2id_seqs(items4train, dictionary, Tokens.UNK)
+        # idx4train: int = randint(0, len(seq4train) - 1)
+        # print(seq4train[idx4train])
+        # Build sequence for all, train and valid
+        seq4valid: list[list[int]] = build_word2id_seqs(items4valid, dictionary, Tokens.UNK)
+        # idx4valid: int = randint(0, len(seq4valid) - 1)
+        # print(seq4valid[idx4valid])
+        # Build sequence for all, train and valid
+        seq4all: list[list[int]] = seq4train + seq4valid
+        # idx4all: int = randint(0, len(seq4all) - 1)
+        # print(seq4all[idx4all])
+
         # Get the train dataset sentences description
-        lengths: list[int] = [len(seq) for seq in sequences4train]
+        lengths: list[int] = [len(seq) for seq in seq4all]
         max_len: int = max(lengths)
         min_len: int = min(lengths)
         avg_len: float = sum(lengths) / len(lengths)
         # Check the coverage of train data
-        check_vocab_coverage(items4train, dictionary)
-
-        # Build sequences & sequence for validation
-        sequences4valid: list[list[int]] = build_word2id_seqs(sentences4valid, dictionary)
-        # idx4valid: int = randint(0, len(sequences4valid) - 1)
-        # print(sequences4valid[idx4valid])
-        # print(sequences4valid[idx4valid])
-        seq4valid: list[int] = [
-            index for line in tqdm(sequences4valid, total=len(sequences4valid), desc="Seq4Valid") for index in line
-        ]
-        # print(len(seq4valid))
+        check_vocab_coverage(words4train, dictionary)
         # Check the coverage of valid data
-        items4valid: list[str] = []
-        if amount is None:
-            for line in tqdm(sentences4valid, total=len(sentences4valid), desc="Tokenizing Valid Data"):
-                for item in cut_only(line):
-                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
-                        items4valid.append(item)
-        else:
-            for line in tqdm(sentences4valid[:amount], total=amount, desc="Tokenizing Valid Data"):
-                for item in cut_only(line):
-                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
-                        items4valid.append(item)
-        # print(items4train)
-        check_vocab_coverage(items4valid, dictionary)
+        check_vocab_coverage(words4valid, dictionary)
 
-        # Set dataset
-        dataset4train = TorchDataset4SeqPredictionNextStep(
-            seq4train,
-            seq_max_len=CONFIG4DL.PREPROCESSOR.MAX_SEQUENCE_LEN,
-            mode=SeqTaskMode.SEQ2ONE,
-            pad_token=dictionary["<PAD>"]
-        )
-        dataset4valid = TorchDataset4SeqPredictionNextStep(
-            seq4valid,
-            seq_max_len=CONFIG4DL.PREPROCESSOR.MAX_SEQUENCE_LEN,
-            mode=SeqTaskMode.SEQ2ONE,
-            pad_token=dictionary["<PAD>"]
-        )
-        # idx4train: int = randint(0, len(dataset4train) - 1)
-        # print(dataset4train[idx4train])
-        # idx4valid: int = randint(0, len(dataset4valid) - 1)
-        # print(dataset4valid[idx4valid])
-        # print()
+        # Zip labels and contents back
+        if amount is None:
+            labels4train: list[int] = [label for label, _ in data4train]
+            labels4valid: list[int] = [label for label, _ in data4valid]
+        else:
+            labels4train: list[int] = [label for label, _ in data4train[:amount]]
+            labels4valid: list[int] = [label for label, _ in data4valid[:amount]]
+        assert len(seq4train) == len(labels4train), "Train Labels and Contents Length Mismatch!"
+        assert len(seq4valid) == len(labels4valid), "Valid Labels and Contents Length Mismatch!"
+        # print(label4train[:3])
+        # print(label4valid[:3])
 
         starts()
         print("Data Preprocessing Summary:")
         lines()
-        print(f"Train dataset: {len(dataset4train)} Samples")
-        print(f"Valid dataset: {len(dataset4valid)} Samples")
+        print(f"Train dataset: {len(data4train)} Samples")
+        print(f"Valid dataset: {len(data4valid)} Samples")
         print(f"Dictionary Size: {len(dictionary)}")
         print(f"The min length of the sequence: {min_len}")
         print(f"The average length of the sequence: {avg_len:.2f}")
@@ -134,16 +136,16 @@ def process_data() -> tuple[Dataset, Dataset, int]:
         ****************************************************************
         Data Preprocessing Summary:
         ----------------------------------------------------------------
-        Train dataset: 6976011 Samples
-        Valid dataset: 1491563 Samples
-        Dictionary Size: 7459
-        The min length of the sequence: 3
-        The average length of the sequence: 25.71
-        The max length of the sequence: 111
+        Train dataset: 44089 Samples
+        Valid dataset: 9448 Samples
+        Dictionary Size: 9570
+        The min length of the sequence: 0
+        The average length of the sequence: 12.83
+        The max length of the sequence: 48
         ****************************************************************
         """
 
-        return dataset4train, dataset4valid, max_len
+        return seq4train, labels4train, seq4valid, labels4valid, max_len, balanced_weights
 
 
 if __name__ == "__main__":
