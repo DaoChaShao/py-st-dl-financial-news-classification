@@ -94,6 +94,7 @@
 
 ### Bug Fixes
 
+- disable model selection for OpenAI in prediction.py ([efee553](https://github.com///commit/efee5530a98a7cbdbac1100f7327f6858423b503))
 - correct amount initialization and update prediction correctness check in predictor.py ([04cb454](https://github.com///commit/04cb4542e9d15a27a589b6f4a989c0a6de46f979))
 - comment out confusion metrics calculation in trainer ([bf78f8b](https://github.com///commit/bf78f8b42f7864d705c758df42aec1f105d48f3a))
 - add missing newline at end of file in main.py ([f0a0b17](https://github.com///commit/f0a0b17f46c59e610526e42b5dbc2367e6202cab))
@@ -104,6 +105,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent enhancements for OpenAI API integration ([9442143](https://github.com///commit/9442143527556b74e92d13e9a1a9f2c0fbbc51f1))
 - update CHANGELOG.md to include recent changes for financial news prediction application ([250b063](https://github.com///commit/250b06345026d02086bf7231ca29cdc9080367f2))
 - update home.py to reflect changes for financial news prediction application ([a2eee23](https://github.com///commit/a2eee239b2a22928d43c8960eb00df829d178a40))
 - update CHANGELOG.md to reflect recent updates and enhancements for financial news classification app ([547e157](https://github.com///commit/547e1570c9d9130040ebe0feb010f7ab4ff82b54))
