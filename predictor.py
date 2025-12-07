@@ -23,29 +23,28 @@ from src.utils.SQL import SQLiteIII
 from src.utils.stats import create_full_data_split, load_json
 
 
-def pad_seq2tensor(sequences: list[list[int]], max_len: int, PAD: int = 0) -> Tensor:
-    """ Convert sequences to PyTorch Tensor
-    :param sequences: list of word2id sequences
-    :param max_len: maximum sequence length
-    :param PAD: padding index
-    :return: PyTorch Tensor of sequences
-    """
-    padded: list[list[int]] = []
-
-    for seq in sequences:
-        if len(seq) > max_len:
-            new = seq[:max_len]
-        else:
-            new = seq + [PAD] * (max_len - len(seq))
-        padded.append(new)
-
-    return tensor(padded, dtype=long)
+# def pad_seq2tensor(sequences: list[list[int]], max_len: int, PAD: int = 0) -> Tensor:
+#     """ Convert sequences to PyTorch Tensor
+#     :param sequences: list of word2id sequences
+#     :param max_len: maximum sequence length
+#     :param PAD: padding index
+#     :return: PyTorch Tensor of sequences
+#     """
+#     padded: list[list[int]] = []
+#
+#     for seq in sequences:
+#         if len(seq) > max_len:
+#             new = seq[:max_len]
+#         else:
+#             new = seq + [PAD] * (max_len - len(seq))
+#         padded.append(new)
+#
+#     return tensor(padded, dtype=long)
 
 
 def main() -> None:
     """ Main Function """
     # Get the data from the database: Method II
-    # Get the data from the database
     table: str = "news"
     cols: dict[str, type[int | str]] = {"label": int, "content": str}
     with SQLiteIII(table, cols, CONFIG4RNN.FILEPATHS.SQLITE) as db:
@@ -54,8 +53,6 @@ def main() -> None:
         # print()
     # pprint(data[:3])
     # print(len(data))
-
-    MAX_SEQ_LEN: int = 48
 
     with Timer("Next Word Prediction"):
         # Separate the data
@@ -78,7 +75,6 @@ def main() -> None:
         # Load the dictionary and convert
         dic: Path = Path(CONFIG4RNN.FILEPATHS.DICTIONARY)
         dictionary: dict[str, int] = load_json(dic)
-        reversed_dictionary: dict = {idx: word for word, idx in dictionary.items()}
 
         # Convert a random sentence to sequence using dictionary
         idx: int = randint(0, len(news) - 1)
@@ -119,9 +115,9 @@ def main() -> None:
 
             # Prediction
             with no_grad():
-                logist: Tensor = model(X)
+                logits: Tensor = model(X)
                 # print(logist)
-                probabilities: Tensor = nn.functional.softmax(logist)
+                probabilities: Tensor = nn.functional.softmax(logits)
                 # print(probabilities)
                 y_pred: Tensor = argmax(probabilities, dim=1)
                 print(y_pred)
