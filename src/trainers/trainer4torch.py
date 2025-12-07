@@ -96,7 +96,7 @@ class TorchTrainer(QObject):
 
         _metrics: dict[str, float] = {
             **calculator_for_classification(_results, _targets),
-            **calculator_for_confusion_metrics(_results, _targets)
+            # **calculator_for_confusion_metrics(_results, _targets),
         }
 
         return _loss / _total, _metrics
