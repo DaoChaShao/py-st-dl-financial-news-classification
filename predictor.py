@@ -59,8 +59,8 @@ def main() -> None:
         _, _, data = create_full_data_split(database)
 
         # Tokenise the data
-        # amount: int | None = 100
-        amount: int | None = None
+        amount: int | None = 100
+        # amount: int | None = None
         contents: list[str] = [content for _, content in data]
         if amount is None:
             news: list[list[str]] = spacy_batch_tokeniser(
@@ -122,7 +122,7 @@ def main() -> None:
                 y_pred: Tensor = argmax(probabilities, dim=1)
                 print(y_pred)
 
-                correct: bool = (y_pred.item() == y)
+                correct: bool = (y_pred.item() == y.item())
                 # print(correct)
                 print(blue("Positive") if y == 2 else purple("Negative") if y == 1 else yellow("Neutral"))
 
