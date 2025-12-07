@@ -11,7 +11,8 @@ from re import search
 from random import randint
 from streamlit import (empty, sidebar, subheader, session_state,
                        button, container, rerun, spinner, columns,
-                       markdown, write)
+                       markdown, write, slider, selectbox,
+                       caption, text_input)
 from torch import load, device, Tensor, no_grad, nn, argmax
 
 from src.configs.cfg_rnn import CONFIG4RNN
@@ -178,10 +179,49 @@ with sidebar:
                         write(rate)
 
                     # Prompt Engineering with OpenAI API
-                    key: Path = Path(CONFIG4RNN.FILEPATHS.API_KEY)
-                    config: dict = read_yaml(key)
-                    API_KEY: str = config["openai"]["api_key"]
-                    opener = OpenAITextCompleter(API_KEY, temperature=0)
+                    # key: Path = Path(CONFIG4RNN.FILEPATHS.API_KEY)
+                    # config: dict = read_yaml(key)
+                    # api_key: str = config["openai"]["api_key"]
+
+                    temperature: float = slider(
+                        "Temperature", min_value=0.0, max_value=2.0, value=0.0, step=0.1, disabled=True,
+                        help="Controls the randomness of the model's output. Lower values make it more deterministic.",
+                    )
+                    top_p: float = slider(
+                        "Top-p", min_value=0.0, max_value=1.0, value=1.0, step=0.1, disabled=True,
+                        help="Controls the diversity of the model's output by sampling from the top p% of the probability distribution.",
+                    )
+                    model: str = selectbox(
+                        "OpenAi Model", ["gpt-3.5-turbo", "gpt-4.1-mini", "gpt-5"], index=1, disabled=False,
+                        help="Select the OpenAI model to use.",
+                    )
+                    match model:
+                        case "gpt-3.5-turbo":
+                            caption(r"Cost — Input: **\$0.50**, Output: **\$1.50** / 1M tokens")
+                        case "gpt-4.1-mini":
+                            caption(r"Cost — Input: **\$0.40**, Output: **\$1.60** / 1M tokens")
+                        case "gpt-5":
+                            caption(r"Cost — Input: **\$1.25**, Output: **\$10.00** / 1M tokens")
+                        case _:
+                            caption("No cost information available for this model.")
+                    api_key: str = text_input(
+                        "OpenAI API Key",
+                        max_chars=164, type="password",
+                        help="OpenAI API key for authentication",
+                    )
+                    caption(f"The length of API key you entered is {len(api_key)} characters.")
+                    if not api_key:
+                        empty_messages.error("Please enter your OpenAI API key.")
+                    elif api_key and not api_key.startswith("sk-"):
+                        empty_messages.error("Please enter a **VALID** OpenAI API key.")
+                    elif api_key and api_key.startswith("sk-") and len(api_key) != 164:
+                        empty_messages.warning("The length of OpenAI API key should be 164 characters.")
+                    elif api_key and api_key.startswith("sk-") and len(api_key) == 164:
+                        empty_messages.success(
+                            "The OpenAI API key is valid. Please enter a story theme or a story description."
+                        )
+
+                    opener = OpenAITextCompleter(api_key, temperature=temperature, top_p=top_p)
                     role: str = "You are a professional financial expert with cross-cultural expertise."
                     rating: str = """
                         0: Neutral Review
@@ -194,7 +234,7 @@ with sidebar:
                         Please analyze it, give a reason, and provide a rating (Only return number) as follows:
                         {rating}.
                     """
-                    explanation = opener.client(role, prompt)
+                    explanation = opener.client(role, prompt, model=model)
                     interpreter.write(explanation)
 
                     match = search(r"\b[0-2]\b", explanation)
