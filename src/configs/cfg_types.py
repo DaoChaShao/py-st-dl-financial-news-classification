@@ -6,24 +6,28 @@
 # @File     :   cfg_types.py
 # @Desc     :   
 
-from enum import StrEnum, IntEnum, unique
+from enum import StrEnum, unique
+from pathlib import Path
+
+from src.configs.cfg_base import CONFIG
+from src.utils.stats import load_json
 
 
 @unique
-class SeqTaskMode(StrEnum):
+class SeqTask(StrEnum):
     SEQ2ONE = "seq2one"
     SEQ2SEQ = "seq2seq"
     SEQ_SLICE = "slice"
 
 
 @unique
-class LangType(StrEnum):
+class Language(StrEnum):
     CN = "cn"
     EN = "en"
 
 
 @unique
-class TokenStrType(StrEnum):
+class Tokens(StrEnum):
     PAD = "<PAD>"
     UNK = "<UNK>"
     SOS = "<SOS>"
@@ -31,19 +35,15 @@ class TokenStrType(StrEnum):
 
 
 @unique
-class TokenIntType(IntEnum):
-    PAD = 0
-    UNK = 1
-    SOS = 2
-    EOS = 3
-
-
-@unique
-class LSTMTaskType(StrEnum):
+class LSTMTask(StrEnum):
     CLASSIFICATION = "classification"
     GENERATION = "generation"
 
 
 if __name__ == "__main__":
-    out = SeqTaskMode.SEQ2ONE
+    out = SeqTask.SEQ2ONE
     print(out)
+
+    dic: Path = Path(CONFIG.FILEPATHS.DICTIONARY)
+    dictionary: dict = load_json(dic)
+    print(dictionary[Tokens.PAD])
