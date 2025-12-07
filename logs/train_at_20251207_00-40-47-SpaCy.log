@@ -1,0 +1,8 @@
+[2025-12-07 00:41:22][INFO] {"epochs": 100, "epoch": 1, "alpha": 0.0001, "train_loss": 0.9314, "valid_loss": 0.928, "accuracy": 0.5777, "precision": 0.3338, "recall": 0.5777, "f1_score": 0.4231}
+[2025-12-07 00:41:57][INFO] {"epochs": 100, "epoch": 2, "alpha": 0.0001, "train_loss": 0.8335, "valid_loss": 0.8072, "accuracy": 0.6589, "precision": 0.5579, "recall": 0.6589, "f1_score": 0.6023}
+[2025-12-07 00:42:31][INFO] {"epochs": 100, "epoch": 3, "alpha": 0.0001, "train_loss": 0.6863, "valid_loss": 0.7362, "accuracy": 0.6699, "precision": 0.6022, "recall": 0.6699, "f1_score": 0.6296}
+[2025-12-07 00:43:06][INFO] {"epochs": 100, "epoch": 4, "alpha": 0.0001, "train_loss": 0.5798, "valid_loss": 0.7582, "accuracy": 0.6809, "precision": 0.6089, "recall": 0.6809, "f1_score": 0.6392}
+[2025-12-07 00:43:40][INFO] {"epochs": 100, "epoch": 5, "alpha": 0.0001, "train_loss": 0.5116, "valid_loss": 0.8253, "accuracy": 0.6823, "precision": 0.602, "recall": 0.6823, "f1_score": 0.638}
+[2025-12-07 00:44:15][INFO] {"epochs": 100, "epoch": 6, "alpha": 0.0001, "train_loss": 0.4682, "valid_loss": 0.8127, "accuracy": 0.6781, "precision": 0.6601, "recall": 0.6781, "f1_score": 0.6454}
+[2025-12-07 00:44:50][INFO] {"epochs": 100, "epoch": 7, "alpha": 5e-05, "train_loss": 0.4133, "valid_loss": 0.9012, "accuracy": 0.6795, "precision": 0.6597, "recall": 0.6795, "f1_score": 0.6563}
+[2025-12-07 00:45:24][INFO] {"epochs": 100, "epoch": 8, "alpha": 5e-05, "train_loss": 0.3829, "valid_loss": 0.9229, "accuracy": 0.6768, "precision": 0.6822, "recall": 0.6768, "f1_score": 0.6689}
