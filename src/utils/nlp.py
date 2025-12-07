@@ -116,10 +116,11 @@ def extract_zh_chars(filepath: str | Path, pattern: str = r"[^\u4e00-\u9fa5]") -
 
 
 @timer
-def spacy_single_tokeniser(content: str, lang: str) -> list[str]:
+def spacy_single_tokeniser(content: str, lang: str, strict: bool = False) -> list[str]:
     """ SpaCy NLP Processor for an English or a Chinese text
     :param content: a text content to process
-    :param lang: language code for the text (e.g., 'en' for English, 'zh' for Chinese)
+    :param lang: language code for the text (e.g., 'en' for English, 'cn' for Chinese)
+    :param strict: whether to enforce strict token filtering (default is False)
     :return: list of tokens
     """
     nlp = None
@@ -146,9 +147,36 @@ def spacy_single_tokeniser(content: str, lang: str) -> list[str]:
 
     match lang:
         case "cn":
-            words = [token.text for token in doc if token.text.strip() and not token.is_punct and not token.is_stop]
+            if strict:
+                words = [
+                    token.text for token in doc
+                    if token.text.strip()
+                       and not token.is_stop
+                       and not token.is_punct
+                       and any(c.isalnum() for c in token.text)
+                ]
+            else:
+                words = [
+                    token.text
+                    for token in doc
+                    if token.text.strip()
+                       and not token.is_stop
+                       and any(c.isalnum() for c in token.text)
+                ]
         case "en":
-            words = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
+            if strict:
+                words = [
+                    token.lemma_.lower() for token in doc
+                    if not token.is_stop
+                       and token.text.strip()
+                       and len(token.lemma_) > 1
+                       and any(c.isalnum() for c in token.text)
+                ]
+            else:
+                words = [
+                    token.lemma_.lower() for token in doc
+                    if not token.is_stop and token.text.strip() and len(token.lemma_) > 1
+                ]
         case _:
             raise ValueError(f"Unsupported language: {lang}")
 
@@ -158,11 +186,14 @@ def spacy_single_tokeniser(content: str, lang: str) -> list[str]:
 
 
 @timer
-def spacy_batch_tokeniser(contents: list[str], lang: str = "en", batches: int = 100) -> list[list[str]]:
+def spacy_batch_tokeniser(
+        contents: list[str], lang: str = "en", batches: int = 100, strict: bool = False
+) -> list[list[str]]:
     """ SpaCy NLP Processor for a batch of English texts
     :param contents: list of text contents to process
     :param lang: language code for the texts (default is 'en' for English)
     :param batches: number of texts to process in each batch
+    :param strict: whether to enforce strict token filtering (default is False)
     :return: list of tokenized texts
     """
     nlp = None
@@ -189,11 +220,36 @@ def spacy_batch_tokeniser(contents: list[str], lang: str = "en", batches: int = 
     for doc in tqdm(nlp.pipe(contents, batch_size=batches), total=len(contents), desc="SpaCy Batch Tokeniser"):
         match lang:
             case "cn":
-                tokens = [
-                    token.text for token in doc if token.text.strip() and not token.is_punct and not token.is_stop
-                ]
+                if strict:
+                    tokens = [
+                        token.text for token in doc
+                        if token.text.strip()
+                           and not token.is_stop
+                           and not token.is_punct
+                           and any(c.isalnum() for c in token.text)
+                    ]
+                else:
+                    tokens = [
+                        token.text
+                        for token in doc
+                        if token.text.strip()
+                           and not token.is_stop
+                           and any(c.isalnum() for c in token.text)
+                    ]
             case "en":
-                tokens = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
+                if strict:
+                    tokens = [
+                        token.lemma_.lower() for token in doc
+                        if not token.is_stop
+                           and token.text.strip()
+                           and len(token.lemma_) > 1
+                           and any(c.isalnum() for c in token.text)
+                    ]
+                else:
+                    tokens = [
+                        token.lemma_.lower() for token in doc
+                        if not token.is_stop and token.text.strip() and len(token.lemma_) > 1
+                    ]
             case _:
                 raise ValueError(f"Unsupported language: {lang}")
         words.append(tokens)
@@ -203,7 +259,10 @@ def spacy_batch_tokeniser(contents: list[str], lang: str = "en", batches: int = 
     return words
 
 
-def build_word2id_seqs(contents: list[list[str]], dictionary: dict[str, int]) -> list[list[int]]:
+def build_word2id_seqs(
+        contents: list[list[str]], dictionary: dict[str, int],
+        UNK: str = "<UNK>"
+) -> list[list[int]]:
     """ Build word2id sequences from contents using the provided dictionary
     :param contents: list of texts to convert
     :param dictionary: word2id mapping dictionary
@@ -216,7 +275,7 @@ def build_word2id_seqs(contents: list[list[str]], dictionary: dict[str, int]) ->
             if word in dictionary:
                 sequence.append(dictionary[word])
             else:
-                sequence.append(dictionary["<UNK>"])
+                sequence.append(dictionary[UNK])
         sequences.append(sequence)
 
     return sequences
