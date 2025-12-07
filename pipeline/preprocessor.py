@@ -6,19 +6,19 @@
 # @File     :   preprocessor.py
 # @Desc     :   
 
+from numpy import array, ndarray
 from pandas import DataFrame, read_csv
-from pathlib import Path
 from pprint import pprint
+from pathlib import Path
 from random import randint
-from tqdm import tqdm
+from sklearn.utils.class_weight import compute_class_weight
 
 from src.configs.cfg_base import CONFIG
 from src.utils.helper import Timer
 from src.utils.SQL import SQLiteIII
-from src.utils.stats import load_json
 
 
-def preprocess_data() -> None:
+def preprocess_data() -> ndarray:
     """ Main Function """
     with Timer("Preprocess Data"):
         path: Path = Path(CONFIG.FILEPATHS.DATA4ALL)
@@ -40,6 +40,10 @@ def preprocess_data() -> None:
             print(type(raw.iloc[idx]), raw.shape)
             print()
 
+            # Check the categories
+            print(raw["label"].value_counts())
+            print()
+
             # Convert string labels to integer labels
             categories: dict = {label: idx for idx, label in enumerate(raw["label"].unique())}
             # print(categories)
@@ -50,6 +54,15 @@ def preprocess_data() -> None:
             raw["label"] = raw["label"].map(categories)
             pprint(raw.iloc[idx])
             print(type(raw.iloc[idx]), raw.shape)
+            print()
+
+            # Check and balance the weights of different classes
+            balanced_weights = compute_class_weight(
+                class_weight="balanced",
+                classes=array(list(categories.values())),
+                y=raw["label"].to_numpy(),
+            )
+            print(balanced_weights)
             print()
 
             # Get the news
@@ -66,6 +79,8 @@ def preprocess_data() -> None:
                 db.insert(data)
         else:
             print(f"{path.name} does NOT exist!")
+
+        return balanced_weights
 
 
 if __name__ == "__main__":
