@@ -45,7 +45,7 @@ both as a learning exercise and a baseline for more advanced financial NLP appli
 3. Run the application with the command `streamlit run main.py`.
 4. You can also try the application by visiting the following
    link:  
-   [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://news-classification.streamlit.app/)
+   [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://financial-news-classification.streamlit.app/)
 
 **PRIVACY NOTICE**
 ---
