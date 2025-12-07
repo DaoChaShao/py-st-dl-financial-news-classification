@@ -103,6 +103,8 @@
 
 ### Docs
 
+- update home.py to reflect changes for financial news prediction application ([a2eee23](https://github.com///commit/a2eee239b2a22928d43c8960eb00df829d178a40))
+- update CHANGELOG.md to reflect recent updates and enhancements for financial news classification app ([547e157](https://github.com///commit/547e1570c9d9130040ebe0feb010f7ab4ff82b54))
 - update Streamlit link in README.zh-CN.md for financial news classification app ([125a60c](https://github.com///commit/125a60c9a2e0d81dcf525a417733fb9a06b68418))
 - update Streamlit link in README.md for financial news classification app ([68bba7b](https://github.com///commit/68bba7b1bbb94a9617bd16d127234fa2ee1a89a6))
 - update CHANGELOG.md to include recent additions and enhancements for Next Word Prediction app ([39ed408](https://github.com///commit/39ed408d406b6bd8b90ee546f5666b73baedeb9b))
