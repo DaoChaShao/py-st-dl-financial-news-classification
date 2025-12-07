@@ -5,6 +5,7 @@
 
 ### Features
 
+- enhance OpenAI API integration with model selection and API key validation ([48f69a8](https://github.com///commit/48f69a854e51fee4458a41a7bc3c0e71ff0774fe))
 - add prediction.py for implementing Next Word Prediction functionality with model initialization and prediction logic ([0472c16](https://github.com///commit/0472c1645e1a65227751b786bd23033f253a3b21))
 - update main.py to configure page settings and set up navigation ([645525b](https://github.com///commit/645525b85883cdc38df21b3aec89f9898eee4679))
 - add layout.py for configuring page settings and sidebar navigation in Next Word Prediction app ([568dc44](https://github.com///commit/568dc440be3531a01aa6116ba694301e7fa509fd))
@@ -103,6 +104,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent changes for financial news prediction application ([250b063](https://github.com///commit/250b06345026d02086bf7231ca29cdc9080367f2))
 - update home.py to reflect changes for financial news prediction application ([a2eee23](https://github.com///commit/a2eee239b2a22928d43c8960eb00df829d178a40))
 - update CHANGELOG.md to reflect recent updates and enhancements for financial news classification app ([547e157](https://github.com///commit/547e1570c9d9130040ebe0feb010f7ab4ff82b54))
 - update Streamlit link in README.zh-CN.md for financial news classification app ([125a60c](https://github.com///commit/125a60c9a2e0d81dcf525a417733fb9a06b68418))
