@@ -1,10 +1,22 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/a5d97cc354b4ef9e45ec2de5330b5690a7997105...0.1.0) (2025-12-06)
+## [0.1.0](https://github.com///compare/a5d97cc354b4ef9e45ec2de5330b5690a7997105...0.1.0) (2025-12-07)
 
 ### Features
 
+- update trainer to use LSTM model and implement balanced class weights ([41e4ad7](https://github.com///commit/41e4ad740ddf7a0d207cf2b77fd78b8cc7dbcc10))
+- add training log for SpaCy model with detailed performance metrics ([a0e9ae8](https://github.com///commit/a0e9ae8fd70ee04d2e5c7b1191fe363879441317))
+- add training log for SpaCy model with performance metrics ([7d589d1](https://github.com///commit/7d589d1fa212ec6ba55039a719f5a4bbbdc236cf))
+- add balance_imbalanced_weights function to compute balanced class weights ([9e56726](https://github.com///commit/9e56726282b5869e8b1baec3e067393ba2095a26))
+- refactor process_data function to include balanced weights and improve data handling ([6985bf0](https://github.com///commit/6985bf0ce6eed07e1d1cb5b5ce5b62a17e66178a))
+- update preprocess_data function to return balanced class weights and enhance data inspection ([41b39ba](https://github.com///commit/41b39bab6038ebcca81e6e427d5765ba3936f2ca))
+- enhance data preparation to include balanced weights and dictionary loading ([bb4f69a](https://github.com///commit/bb4f69a40aae0f45bc7244bf93ab311ff8dc274b))
+- update predictor to use LSTM model and enhance prediction logic with OpenAI integration ([62e7ad4](https://github.com///commit/62e7ad461efaac11ff3befd9dd238649ecea7f1e))
+- enhance tokenization functions with strict filtering option ([7cb272a](https://github.com///commit/7cb272abe0a91c87016f877e71f46de8d7491e01))
+- add model.pth ([b249f92](https://github.com///commit/b249f929fbdbbff904aecacee15a7a2622acc1a2))
+- update RNNParams to support multi-class classification ([cd0c4e1](https://github.com///commit/cd0c4e1c759ce9580642737aef4d6d712037a3cb))
+- add balance_imbalanced_weights function to __init__.py exports ([6d9a00d](https://github.com///commit/6d9a00d282879141fcf5f95b0c8ef243cd1bf6cb))
 - add sqlite3.db ([54677c1](https://github.com///commit/54677c1573d564d05a21ae682dbe1c4eae3af734))
 - add processor.py for data processing and dataset preparation ([281d517](https://github.com///commit/281d517818653a4423eac9e34ccbbe90515da866))
 - add preprocessor.py for data preprocessing and SQLite integration ([2c84a0a](https://github.com///commit/2c84a0ab9d70c346a3d51f4bbff76fc003d16f3f))
@@ -73,6 +85,7 @@
 
 ### Bug Fixes
 
+- comment out confusion metrics calculation in trainer ([bf78f8b](https://github.com///commit/bf78f8b42f7864d705c758df42aec1f105d48f3a))
 - add missing newline at end of file in main.py ([f0a0b17](https://github.com///commit/f0a0b17f46c59e610526e42b5dbc2367e6202cab))
 
 ### Chore
@@ -81,6 +94,9 @@
 
 ### Docs
 
+- update sqlite3.db ([8ed77e5](https://github.com///commit/8ed77e555bd0133b66d51fea5fe44163b1f7ee94))
+- update dictionary.json ([581d912](https://github.com///commit/581d9124f09cf956f3f56c64d7203e369a696edc))
+- update CHANGELOG.md to include recent changes and enhancements ([0de8f7f](https://github.com///commit/0de8f7fff1f9511b9698ba31832107d504c7bf1a))
 - update CHANGELOG.md to include recent documentation additions and code refactoring details ([237e98c](https://github.com///commit/237e98ce22808cbd911be7cbc589b8b9632890a7))
 - update CHANGELOG.md to include recent documentation additions ([fbd73a7](https://github.com///commit/fbd73a749fa56a68fd156305b516ce8b5454c62f))
 - add news.csv ([e56e136](https://github.com///commit/e56e136f9172d22a24deb8726b3e3f2d43fbde1a))
@@ -88,6 +104,9 @@
 
 ### Code Refactoring
 
+- rename SeqTaskMode to SeqTask for consistency ([005b70b](https://github.com///commit/005b70bae5b4ed2cb19c2ccc7fdb4785c89db520))
+- rename enums for clarity and update main execution logic ([463059a](https://github.com///commit/463059a90abfd7fe07899028e7f4eaa404a1f74d))
+- update import statements in __init__.py for consistency and clarity ([5c51956](https://github.com///commit/5c5195661c0a6d7788fa84ae20ed8290fb7b7e8c))
 - update SQL.py to use renamed configuration module and enhance database class functionality ([08f8697](https://github.com///commit/08f8697761a330dbf20e3b28e4fe6cb8f4a2b293))
 - update import path in processor.py for renamed configuration module ([15dc2f7](https://github.com///commit/15dc2f72f2f35283494b867fdf797959e7fdc1c3))
 - update import path in preprocessor.py for renamed configuration module and modify data loading logic ([93c86f5](https://github.com///commit/93c86f538beba3c1e7600fcbfe52895de0a96d5f))
