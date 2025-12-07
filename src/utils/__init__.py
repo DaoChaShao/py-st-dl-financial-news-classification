@@ -52,6 +52,7 @@ from .nlp import (regular_chinese, regular_english,
 from .PT import (TorchRandomSeed,
                  check_device, get_device,
                  item2tensor, sequences2tensors,
+                 balance_imbalanced_weights,
                  TensorLogWriter)
 from .SQL import SQLiteIII
 from .stats import (NumpyRandomSeed,
@@ -89,6 +90,7 @@ __all__ = [
     "TorchRandomSeed",
     "check_device", "get_device",
     "item2tensor", "sequences2tensors",
+    "balance_imbalanced_weights",
     "TensorLogWriter",
 
     "SQLiteIII",
