@@ -35,12 +35,12 @@ __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
 from .cfg_base import CONFIG, Config, Database, FilePaths, Punctuations
-from .cfg_dl import CONFIG4DL, Config4DL, DataPreprocessor, Hyperparameters
 from .cfg_cnn import CONFIG4CNN, Configuration4CNN, CNNParams
+from .cfg_dl import CONFIG4DL, Config4DL, DataPreprocessor, Hyperparameters
 from .cfg_mlp import CONFIG4MLP, Configuration4MLP, MLPParams
 from .cfg_rnn import CONFIG4RNN, Configuration4RNN, RNNParams
 from .cfg_unet import CONFIG4UNET, Configuration4UNet, UNetParams
-from .cfg_types import LangType, SeqTaskMode, TokenIntType, TokenStrType, LSTMTaskType
+from .cfg_types import Language, SeqTask, Tokens, LSTMTask
 from .parser import set_argument_parser
 
 __all__ = [
@@ -50,6 +50,6 @@ __all__ = [
     "CONFIG4MLP", "Configuration4MLP", "MLPParams",
     "CONFIG4RNN", "Configuration4RNN", "RNNParams",
     "CONFIG4UNET", "Configuration4UNet", "UNetParams",
-    "LangType", "SeqTaskMode", "TokenIntType", "TokenStrType", "LSTMTaskType",
+    "Language", "SeqTask", "Tokens", "LSTMTask",
     "set_argument_parser"
 ]
