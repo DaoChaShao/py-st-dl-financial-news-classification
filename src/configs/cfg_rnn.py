@@ -14,7 +14,7 @@ from src.configs.cfg_dl import DataPreprocessor, Hyperparameters
 
 @dataclass
 class RNNParams:
-    CLASSES: int = 2  # Binary classification is 2
+    CLASSES: int = 3  # Binary classification is 2
     EMBEDDING_DIM: int = 128
     HIDDEN_SIZE: int = 256
     LAYERS: int = 2
