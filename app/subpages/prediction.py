@@ -192,7 +192,7 @@ with sidebar:
                         help="Controls the diversity of the model's output by sampling from the top p% of the probability distribution.",
                     )
                     model: str = selectbox(
-                        "OpenAi Model", ["gpt-3.5-turbo", "gpt-4.1-mini", "gpt-5"], index=1, disabled=False,
+                        "OpenAi Model", ["gpt-3.5-turbo", "gpt-4.1-mini", "gpt-5"], index=1, disabled=True,
                         help="Select the OpenAI model to use.",
                     )
                     match model:
