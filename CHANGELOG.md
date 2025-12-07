@@ -5,6 +5,14 @@
 
 ### Features
 
+- add prediction.py for implementing Next Word Prediction functionality with model initialization and prediction logic ([0472c16](https://github.com///commit/0472c1645e1a65227751b786bd23033f253a3b21))
+- update main.py to configure page settings and set up navigation ([645525b](https://github.com///commit/645525b85883cdc38df21b3aec89f9898eee4679))
+- add layout.py for configuring page settings and sidebar navigation in Next Word Prediction app ([568dc44](https://github.com///commit/568dc440be3531a01aa6116ba694301e7fa509fd))
+- add home.py for Next Word Prediction application introduction and functionality overview ([e6332ae](https://github.com///commit/e6332ae2b696d1fcd46e0f350450cfdee1dfdce3))
+- add __init__.py for Next Word Prediction application package structure ([ad7de5e](https://github.com///commit/ad7de5ee4b645ab4fc52f4516c71801fac3e35a4))
+- add __init__.py to initialize package structure ([8bd6cc3](https://github.com///commit/8bd6cc35e0d7317fb6df4708cbcbd900d131439c))
+- add __init__.py for multi-page structure in Next Word Prediction app ([5d9c841](https://github.com///commit/5d9c84107f5e99f07a4164311b49e3809df6e2b7))
+- add .gitignore to exclude Python-generated files and IDE configurations ([e98c6c9](https://github.com///commit/e98c6c9007069dffa538c7262283efbb924e9874))
 - refactor evaluator to use LSTM model and improve data processing ([c61dab1](https://github.com///commit/c61dab155590e6e582f3c0ea52ba08a34f3223b5))
 - update trainer to use LSTM model and implement balanced class weights ([41e4ad7](https://github.com///commit/41e4ad740ddf7a0d207cf2b77fd78b8cc7dbcc10))
 - add training log for SpaCy model with detailed performance metrics ([a0e9ae8](https://github.com///commit/a0e9ae8fd70ee04d2e5c7b1191fe363879441317))
@@ -23,7 +31,6 @@
 - add preprocessor.py for data preprocessing and SQLite integration ([2c84a0a](https://github.com///commit/2c84a0ab9d70c346a3d51f4bbff76fc003d16f3f))
 - add prepper.py for data preparation with TorchDataLoader integration ([ede1185](https://github.com///commit/ede118568c35fcf57124d0bffb6ed28b0bf57849))
 - add __init__.py for data processing module with utility functions ([43c1df9](https://github.com///commit/43c1df95b7415896ee67c0418dc9b00d85770940))
-- add .gitignore to exclude Python-generated files and IDE configurations ([36c2290](https://github.com///commit/36c2290f54e296358b331b89399d6931ee7c5c05))
 - add CHANGELOG.md for version 0.1.0 with features, bug fixes, and chores ([64266db](https://github.com///commit/64266dba23117d21a2dd075b9e08c7a9309970c2))
 - add configuration files for English and Chinese pipelines with updated components and accuracy metrics ([06cdf0d](https://github.com///commit/06cdf0d40b7ca6d2aaf5b4e30e47f8731084d971))
 - add uv.lock ([1fca622](https://github.com///commit/1fca622c18ef85b6fc0de953c20122c3e41d7e03))
@@ -86,6 +93,7 @@
 
 ### Bug Fixes
 
+- correct amount initialization and update prediction correctness check in predictor.py ([04cb454](https://github.com///commit/04cb4542e9d15a27a589b6f4a989c0a6de46f979))
 - comment out confusion metrics calculation in trainer ([bf78f8b](https://github.com///commit/bf78f8b42f7864d705c758df42aec1f105d48f3a))
 - add missing newline at end of file in main.py ([f0a0b17](https://github.com///commit/f0a0b17f46c59e610526e42b5dbc2367e6202cab))
 
@@ -95,6 +103,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent refactor and feature enhancements ([93abe61](https://github.com///commit/93abe6140ca2331261745cb5d05aa2f0f7b95365))
 - update CHANGELOG.md to reflect recent enhancements and bug fixes ([fa95003](https://github.com///commit/fa950033e08ebb28d7e0d4d0caf8bd9f5c6641a2))
 - update sqlite3.db ([8ed77e5](https://github.com///commit/8ed77e555bd0133b66d51fea5fe44163b1f7ee94))
 - update dictionary.json ([581d912](https://github.com///commit/581d9124f09cf956f3f56c64d7203e369a696edc))
