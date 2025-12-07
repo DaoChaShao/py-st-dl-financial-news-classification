@@ -103,6 +103,9 @@
 
 ### Docs
 
+- update Streamlit link in README.zh-CN.md for financial news classification app ([125a60c](https://github.com///commit/125a60c9a2e0d81dcf525a417733fb9a06b68418))
+- update Streamlit link in README.md for financial news classification app ([68bba7b](https://github.com///commit/68bba7b1bbb94a9617bd16d127234fa2ee1a89a6))
+- update CHANGELOG.md to include recent additions and enhancements for Next Word Prediction app ([39ed408](https://github.com///commit/39ed408d406b6bd8b90ee546f5666b73baedeb9b))
 - update CHANGELOG.md to include recent refactor and feature enhancements ([93abe61](https://github.com///commit/93abe6140ca2331261745cb5d05aa2f0f7b95365))
 - update CHANGELOG.md to reflect recent enhancements and bug fixes ([fa95003](https://github.com///commit/fa950033e08ebb28d7e0d4d0caf8bd9f5c6641a2))
 - update sqlite3.db ([8ed77e5](https://github.com///commit/8ed77e555bd0133b66d51fea5fe44163b1f7ee94))
