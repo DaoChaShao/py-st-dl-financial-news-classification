@@ -5,6 +5,7 @@
 
 ### Features
 
+- refactor evaluator to use LSTM model and improve data processing ([c61dab1](https://github.com///commit/c61dab155590e6e582f3c0ea52ba08a34f3223b5))
 - update trainer to use LSTM model and implement balanced class weights ([41e4ad7](https://github.com///commit/41e4ad740ddf7a0d207cf2b77fd78b8cc7dbcc10))
 - add training log for SpaCy model with detailed performance metrics ([a0e9ae8](https://github.com///commit/a0e9ae8fd70ee04d2e5c7b1191fe363879441317))
 - add training log for SpaCy model with performance metrics ([7d589d1](https://github.com///commit/7d589d1fa212ec6ba55039a719f5a4bbbdc236cf))
@@ -94,6 +95,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to reflect recent enhancements and bug fixes ([fa95003](https://github.com///commit/fa950033e08ebb28d7e0d4d0caf8bd9f5c6641a2))
 - update sqlite3.db ([8ed77e5](https://github.com///commit/8ed77e555bd0133b66d51fea5fe44163b1f7ee94))
 - update dictionary.json ([581d912](https://github.com///commit/581d9124f09cf956f3f56c64d7203e369a696edc))
 - update CHANGELOG.md to include recent changes and enhancements ([0de8f7f](https://github.com///commit/0de8f7fff1f9511b9698ba31832107d504c7bf1a))
@@ -104,6 +106,7 @@
 
 ### Code Refactoring
 
+- comment out unused padding function and clean up variable names ([e815400](https://github.com///commit/e815400aa66772aea930ff7f4281032765c4ecb9))
 - rename SeqTaskMode to SeqTask for consistency ([005b70b](https://github.com///commit/005b70bae5b4ed2cb19c2ccc7fdb4785c89db520))
 - rename enums for clarity and update main execution logic ([463059a](https://github.com///commit/463059a90abfd7fe07899028e7f4eaa404a1f74d))
 - update import statements in __init__.py for consistency and clarity ([5c51956](https://github.com///commit/5c5195661c0a6d7788fa84ae20ed8290fb7b7e8c))
