@@ -13,7 +13,7 @@ from torch import Tensor, load, device, no_grad, nn
 from tqdm import tqdm
 
 from src.configs.cfg_rnn import CONFIG4RNN
-from src.configs.cfg_types import SeqTaskMode
+from src.configs.cfg_types import SeqTask
 from src.dataloaders.dataloader4torch import TorchDataLoader
 from src.datasets.seq_next_step import TorchDataset4SeqPredictionNextStep
 from src.nets.rnn4classification import NormalRNNForClassification
@@ -68,7 +68,7 @@ def main() -> None:
         dataset = TorchDataset4SeqPredictionNextStep(
             sequence,
             seq_max_len=CONFIG4RNN.PREPROCESSOR.MAX_SEQUENCE_LEN,
-            mode=SeqTaskMode.SEQ2ONE,
+            mode=SeqTask.SEQ2ONE,
             pad_token=dictionary["<PAD>"]
         )
         starts()
