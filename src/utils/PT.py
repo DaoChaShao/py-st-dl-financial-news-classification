@@ -8,9 +8,10 @@
 
 from datetime import datetime
 from numpy import ndarray, array, random as np_random, number
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from pathlib import Path
 from random import seed as rnd_seed, getstate, setstate
+from sklearn.utils.class_weight import compute_class_weight
 from torch import (cuda, backends, Tensor, tensor, float32, long,
                    manual_seed, get_rng_state, set_rng_state)
 from torch.utils.tensorboard import SummaryWriter
@@ -162,12 +163,12 @@ def get_device(accelerator: str = "auto", cuda_mode: int = 0) -> str:
 
 def item2tensor(
         data: DataFrame | ndarray | list | int | float | number,
-        embed: bool = False,
+        embedding: bool = False,
         accelerator: str = "cpu", is_grad: bool = False
 ) -> Tensor:
     """ Convert data to a PyTorch tensor
     :param data: data to be converted
-    :param embed: whether the data is embedded or not
+    :param embedding: whether the data is embedded or not
     :param accelerator: the target device string ("cpu", "cuda", "mps")
     :param is_grad: whether the tensor requires gradient computation
     :return: the converted PyTorch tensor
@@ -185,7 +186,7 @@ def item2tensor(
         raise TypeError(f"Unsupported data type: {type(data)}")
 
     # Convert to tensor with appropriate dtype
-    if embed:
+    if embedding:
         t = tensor(arr, dtype=long, device=accelerator, requires_grad=is_grad)
     else:
         t = tensor(arr, dtype=float32, device=accelerator, requires_grad=is_grad)
@@ -211,6 +212,24 @@ def sequences2tensors(sequences: list[list[int]], max_len: int) -> Tensor:
         padded.append(new)
 
     return tensor(padded, dtype=long)
+
+
+@timer
+def balance_imbalanced_weights(labels: Series, ordered_categories: list[int]) -> ndarray:
+    """ Balance the weights of different classes
+    :param labels: array of labels
+    :param ordered_categories: array of unique classes
+    :return: array of balanced weights
+    """
+    balanced_weights = compute_class_weight(
+        class_weight="balanced",
+        classes=array(ordered_categories),
+        y=labels.to_numpy(),
+    )
+
+    print(f"Balanced weights for classes {ordered_categories}: {balanced_weights}")
+
+    return balanced_weights
 
 
 class TensorLogWriter:
